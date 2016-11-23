@@ -6,7 +6,7 @@
   "scripts": {
     "build": "nwb build-react-app",
     "clean": "nwb clean-app",
-    "start": "nwb serve-react-app",
+    "start": "node node_modules/http-server/bin/http-server ./dist/ -p 5000 --cors",
     "test": "nwb test",
     "test:coverage": "nwb test --coverage",
     "test:watch": "nwb test --server"
@@ -14,6 +14,7 @@
   "dependencies": {
     "@blueprintjs/core": "^1.0.1",
     "foundation-sites": "^6.2.4",
+    "http-server": "^0.9.0",
     "lodash": "^4.17.2",
     "react": "^15.4.0",
     "react-addons-css-transition-group": "^15.4.0",
