@@ -6,7 +6,7 @@
   "scripts": {
     "build": "nwb build-react-app",
     "clean": "nwb clean-app",
-    "start": "npm build && node node_modules/http-server/bin/http-server ./dist/ -p 5000 --cors",
+    "start": "nwb build && node node_modules/http-server/bin/http-server ./dist/ -p 5000 --cors",
     "test": "nwb test",
     "test:coverage": "nwb test --coverage",
     "test:watch": "nwb test --server"
@@ -19,11 +19,11 @@
     "react": "^15.4.0",
     "react-addons-css-transition-group": "^15.4.0",
     "react-dom": "^15.4.0",
-    "socket.io": "^1.6.0"
-  },
-  "devDependencies": {
+    "socket.io": "^1.6.0",
     "nwb": "0.12.x",
     "nwb-sass": "^0.6.0"
+  },
+  "devDependencies": {
   },
   "author": "",
   "license": "MIT",
