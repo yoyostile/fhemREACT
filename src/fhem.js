@@ -57,7 +57,7 @@ class Fhem extends React.Component {
   }
 
   isAllowedType(type) {
-    return ["Revolt", "IT", "MAX"].includes(type)
+    return ["Revolt", "IT", "MAX", "dummy"].includes(type)
   }
 
   handleDeviceChange(data) {
