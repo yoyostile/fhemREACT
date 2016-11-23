@@ -14,7 +14,6 @@ class App extends React.Component {
   }
 
   onConfirmURLInput(newURL) {
-    console.log(newURL)
     this.setState((prevState, _) => {
       if(newURL.match(/ws:\/\/\S*/)) {
         localStorage.setItem('fhemURL', newURL)
@@ -31,12 +30,13 @@ class App extends React.Component {
   }
 
   render() {
+    const resetLinkStyle = { display: this.state.fhemURL ? 'inline' : 'none' }
     return <div className="App">
       <div className="small-12 columns">
-        <h1>reactFHEM <small className="cursor" onClick={this.resetFhemURL}>Reset Host</small></h1>
+        <h1>reactFHEM <small className="cursor" style={resetLinkStyle} onClick={this.resetFhemURL}>Reset Host</small></h1>
       </div>
       <div className="small-12 columns">
-        { this.state.fhemURL ? <Fhem /> : <FhemURLInput onConfirm={this.onConfirmURLInput} /> }
+        { this.state.fhemURL ? <Fhem url={this.state.fhemURL} /> : <FhemURLInput onConfirm={this.onConfirmURLInput} /> }
       </div>
     </div>
   }

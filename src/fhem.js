@@ -7,9 +7,6 @@ import _ from 'lodash'
 import FhemRoomSwitcher from './fhemRoomSwitcher'
 import FhemGenericDevice from './fhemGenericDevice'
 
-const url = "ws://fhem.lan.r4r3.me:8086/";
-const socket = io(url, { timeout: 5000, 'sync disconnect on unload' : true });
-
 class Fhem extends React.Component {
 
   constructor(props) {
@@ -17,6 +14,7 @@ class Fhem extends React.Component {
     this.handleRoomChange = this.handleRoomChange.bind(this)
     this.handleDeviceCommand = this.handleDeviceCommand.bind(this)
     this.handleDeviceChange = this.handleDeviceChange.bind(this)
+    this.socket = io(this.props.url, { timeout: 5000, 'sync disconnect on unload' : true });
     this.state = {
       jsonlist: { Results: [] },
       rooms: [],
@@ -25,8 +23,8 @@ class Fhem extends React.Component {
   }
 
   componentDidMount() {
-    socket.connect()
-    socket.emit("JsonList2", "", (data) => {
+    this.socket.connect()
+    this.socket.emit("JsonList2", "", (data) => {
       let rooms = this.getRoomsFromData(data);
       this.setState({
         jsonlist: data,
@@ -34,8 +32,8 @@ class Fhem extends React.Component {
       })
     })
 
-    socket.emit("getAllDevicesOnChange")
-    socket.on('device', this.handleDeviceChange)
+    this.socket.emit("getAllDevicesOnChange")
+    this.socket.on('device', this.handleDeviceChange)
   }
 
   getRoomsFromData(data) {
@@ -82,7 +80,7 @@ class Fhem extends React.Component {
   }
 
   handleDeviceCommand(command) {
-    socket.emit("command", command, (data) => {
+    this.socket.emit("command", command, (data) => {
       console.log('sending: ' + command)
       console.log(data)
     })
