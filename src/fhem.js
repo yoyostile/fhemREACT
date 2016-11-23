@@ -18,7 +18,7 @@ class Fhem extends React.Component {
     this.state = {
       jsonlist: { Results: [] },
       rooms: [],
-      activeRoom: "Wohnzimmer"
+      activeRoom: ""
     }
   }
 
@@ -50,7 +50,7 @@ class Fhem extends React.Component {
 
   getDevicesForActiveRoom() {
     return this.state.jsonlist.Results.filter((result) => {
-      return result.Attributes.room ?
+      return result.Attributes.room && this.state.activeRoom ?
         (result.Attributes.room.match(this.state.activeRoom) && this.isAllowedType(result.Internals.TYPE))
         : false
     })
