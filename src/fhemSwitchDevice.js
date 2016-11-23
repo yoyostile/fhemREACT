@@ -2,7 +2,7 @@ import React from "react"
 import _ from "lodash"
 import { Switch } from "@blueprintjs/core"
 
-class FhemITDevice extends React.Component {
+class FhemSwitchDevice extends React.Component {
 
   constructor(props) {
     super(props)
@@ -15,7 +15,7 @@ class FhemITDevice extends React.Component {
   }
 
   render() {
-    return <div className="b-fhem-it-device">
+    return <div className="b-fhem-switch-device">
       <Switch
         checked={this.props.device.Internals.STATE == "on"}
         label={`${this.props.device.Attributes.alias} - ${this.props.device.Name}`}
@@ -24,4 +24,4 @@ class FhemITDevice extends React.Component {
   }
 }
 
-export default FhemITDevice
+export default FhemSwitchDevice
