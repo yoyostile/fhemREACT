@@ -1,3 +1,3 @@
-# plexpy-client
+# fhemREACT
 
-Describe plexpy-client here.
+Describe fhemREACT here.

@@ -12,11 +12,17 @@
     "test:watch": "nwb test --server"
   },
   "dependencies": {
+    "@blueprintjs/core": "^1.0.1",
+    "foundation-sites": "^6.2.4",
+    "lodash": "^4.17.2",
     "react": "^15.4.0",
-    "react-dom": "^15.4.0"
+    "react-addons-css-transition-group": "^15.4.0",
+    "react-dom": "^15.4.0",
+    "socket.io": "^1.6.0"
   },
   "devDependencies": {
-    "nwb": "0.12.x"
+    "nwb": "0.12.x",
+    "nwb-sass": "^0.6.0"
   },
   "author": "",
   "license": "MIT",
