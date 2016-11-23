@@ -18,7 +18,7 @@ class FhemITDevice extends React.Component {
     return <div className="b-fhem-it-device">
       <Switch
         checked={this.props.device.Internals.STATE == "on"}
-        label={this.props.device.Attributes.alias}
+        label={`${this.props.device.Attributes.alias} - ${this.props.device.Name}`}
         onChange={this.handleChange} />
     </div>
   }

@@ -51,13 +51,17 @@ class Fhem extends React.Component {
   getDevicesForActiveRoom() {
     return this.state.jsonlist.Results.filter((result) => {
       return result.Attributes.room ?
-        (result.Attributes.room.match(this.state.activeRoom) && result.Attributes.alias)
+        (result.Attributes.room.match(this.state.activeRoom) && this.isAllowedType(result.Internals.TYPE))
         : false
     })
   }
 
+  isAllowedType(type) {
+    return ["Revolt", "IT", "MAX"].includes(type)
+  }
+
   handleDeviceChange(data) {
-    console.log('DEVICECHANGE')
+    console.log('deviceChange from FHEM')
     let obj = data.Results[0]
     let name = obj.Name
     let results = this.state.jsonlist.Results.slice(0)
