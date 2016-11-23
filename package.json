@@ -6,7 +6,7 @@
   "scripts": {
     "build": "nwb build-react-app",
     "clean": "nwb clean-app",
-    "start": "node node_modules/http-server/bin/http-server ./dist/ -p 5000 --cors",
+    "start": "npm build && node node_modules/http-server/bin/http-server ./dist/ -p 5000 --cors",
     "test": "nwb test",
     "test:coverage": "nwb test --coverage",
     "test:watch": "nwb test --server"
