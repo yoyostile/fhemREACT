@@ -1,24 +1,31 @@
 import React from "react"
 import _ from "lodash"
 
-import FhemSwitchDevice from './fhemSwitchDevice'
-import FhemMAXDevice from './fhemMAXDevice'
-import FhemRevoltDevice from './fhemRevoltDevice'
-
 class FhemGenericDevice extends React.Component {
+
   render() {
-    switch(this.props.device.Internals.TYPE) {
-      case "IT":
-        return <FhemSwitchDevice device={this.props.device} handleDeviceCommand={this.props.handleDeviceCommand} />
-      case "dummy":
-        return <FhemSwitchDevice device={this.props.device} handleDeviceCommand={this.props.handleDeviceCommand} />
-      case "MAX":
-        return <FhemMAXDevice device={this.props.device} handleDeviceCommand={this.props.handleDeviceCommand} />
-      case "Revolt":
-        return <FhemRevoltDevice device={this.props.device} handleDeviceCommand={this.props.handleDeviceCommand} />
-      default:
-        return <li>{ this.props.device.Attributes.alias || this.props.device.Name }</li>
-    }
+    const keys = Object.keys(this.props.device.Readings)
+    return <div className="b-fhem-generic-device">
+      <h4>{this.props.device.Attributes.alias || this.props.device.Name}</h4>
+      <table className="pt-table pt-bordered">
+        <thead>
+          <tr>
+            <th>Attribute</th>
+            <th>Value</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody>
+        { keys.map((key, idx) => {
+          return <tr key={key}>
+            <td>{key}</td>
+            <td>{this.props.device.Readings[key].Value}</td>
+            <td>{this.props.device.Readings[key].Time}</td>
+          </tr>
+        })}
+        </tbody>
+      </table>
+    </div>
   }
 }
 
