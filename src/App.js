@@ -6,14 +6,16 @@ class App extends React.Component {
 
   constructor(props) {
     super(props)
-    this.onConfirmURLInput = this.onConfirmURLInput.bind(this)
+    this.onSubmitURLInput = this.onSubmitURLInput.bind(this)
     this.resetFhemURL = this.resetFhemURL.bind(this)
     this.state = {
       fhemURL: localStorage.getItem('fhemURL') || ''
     }
   }
 
-  onConfirmURLInput(newURL) {
+  onSubmitURLInput(e) {
+    e.preventDefault()
+    const newURL = e.target.getElementsByTagName("input")[0].value
     this.setState((prevState, _) => {
       if(newURL.match(/ws:\/\/\S*/)) {
         localStorage.setItem('fhemURL', newURL)
@@ -36,7 +38,7 @@ class App extends React.Component {
         <h1>reactFHEM <small className="cursor" style={resetLinkStyle} onClick={this.resetFhemURL}>Reset Host</small></h1>
       </div>
       <div className="small-12 columns">
-        { this.state.fhemURL ? <Fhem url={this.state.fhemURL} /> : <FhemURLInput onConfirm={this.onConfirmURLInput} /> }
+        { this.state.fhemURL ? <Fhem url={this.state.fhemURL} /> : <FhemURLInput onSubmit={this.onSubmitURLInput} /> }
       </div>
     </div>
   }
