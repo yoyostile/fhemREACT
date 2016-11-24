@@ -71,16 +71,17 @@ class FhemROLLODevice extends React.Component {
       <div className="row">
         <div className="small-12 medium-6 columns">
           <h4>{this.props.device.Attributes.alias} - {this.props.device.Name}</h4>
-          { this.props.device.Readings.position ? <p>Geöffnet: {parseFloat(this.props.device.Readings.position.Value)}%</p> : null }
+          { this.props.device.Readings.position ? <p>Rollostand: {parseFloat(this.props.device.Readings.position.Value)}%</p> : null }
         </div>
         <div className="small-12 medium-6 columns">
           <div className="pt-button-group float-right">
             { buttonVal.map((val) => {
+              let active = this.props.device.Readings.state.Value != val
               return <a
                   key={val}
-                  onClick={this.onButtonClick}
+                  onClick={active ? this.onButtonClick : null}
                   value={val}
-                  className={`pt-button ${this.props.device.Readings.state.Value == val ? ' pt-disabled' : ''}`}
+                  className={`pt-button ${active ? '' : ' pt-disabled'}`}
                   tabIndex="0"
                   role="button"
                   disabled={this.state.value == val}>{val}</a>
