@@ -4,8 +4,8 @@ import React from 'react'
 import io from 'socket.io-client'
 import _ from 'lodash'
 
-import FhemRoomSwitcher from './fhemRoomSwitcher'
-import FhemDeviceSwitch from './fhemDeviceSwitch'
+import FhemRoomList from './fhemRoomList'
+import FhemDevice from './fhemDevice'
 
 class Fhem extends React.Component {
 
@@ -60,7 +60,8 @@ class Fhem extends React.Component {
   }
 
   isAllowedType(type) {
-    return ["Revolt", "IT", "MAX", "dummy", "MYSENSORS_DEVICE"].includes(type)
+    return ["Revolt", "IT", "MAX", "dummy", "MYSENSORS_DEVICE", "ROLLO"]
+      .includes(type)
   }
 
   handleDeviceChange(data) {
@@ -97,12 +98,14 @@ class Fhem extends React.Component {
     return <div className="b-fhem">
       <div className="row">
         <div className="small-12 medium-3 columns">
-          <FhemRoomSwitcher activeRoom={this.state.activeRoom} rooms={this.state.rooms} handleRoomChange={this.handleRoomChange} />
+          <FhemRoomList activeRoom={this.state.activeRoom} rooms={this.state.rooms} handleRoomChange={this.handleRoomChange} />
         </div>
         <div className="small-12 medium-9 columns">
           <ul className="b-fhem-devices">
             { this.getDevicesForActiveRoom().map((device, _) => {
-              return <FhemDeviceSwitch key={device.Name} handleDeviceCommand={this.handleDeviceCommand} device={device} />
+              return <div key={device.Name} className="b-fhem-device">
+                  <FhemDevice handleDeviceCommand={this.handleDeviceCommand} device={device} />
+                </div>
             })}
           </ul>
         </div>
