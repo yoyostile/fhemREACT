@@ -1,6 +1,5 @@
 import React from "react"
-import _ from "lodash"
-import { Slider } from "@blueprintjs/core"
+import { FlatButton, Slider } from 'material-ui';
 
 class FhemROLLODevice extends React.Component {
 
@@ -29,9 +28,9 @@ class FhemROLLODevice extends React.Component {
     }
   }
 
-  onChange(event) {
+  onChange(event, value) {
     this.setState({
-      value: event
+      value: value
     })
   }
 
@@ -42,8 +41,7 @@ class FhemROLLODevice extends React.Component {
     })
   }
 
-  onButtonClick(event) {
-    const val = event.target.getAttribute('value');
+  onButtonClick(val) {
     this.props.handleDeviceCommand(`set ${this.props.device.Name} ${val}`)
   }
 
@@ -59,10 +57,6 @@ class FhemROLLODevice extends React.Component {
     return values.map((val) => { return val.split(':')[0] })
   }
 
-  renderLabel(val) {
-    return `${val}%`
-  }
-
   render() {
     const keys = Object.keys(this.props.device.Readings)
     const numVal = this.numericValuesForDevice(this.props.device)
@@ -70,23 +64,22 @@ class FhemROLLODevice extends React.Component {
     return <div className="b-fhem-rollo-device">
       <div className="row">
         <div className="small-12 medium-6 columns">
-          <h4>{this.props.device.Attributes.alias} - {this.props.device.Name}</h4>
+          <h5>{this.props.device.Attributes.alias} - {this.props.device.Name}</h5>
           { this.props.device.Readings.position ? <p>Rollostand: {parseFloat(this.props.device.Readings.position.Value)}%</p> : null }
+          <p>Zielstand: {this.state.value}%</p>
         </div>
         <div className="small-12 medium-6 columns">
-          <div className="pt-button-group float-right">
-            { buttonVal.map((val) => {
-              let active = this.props.device.Readings.state.Value != val
-              return <a
-                  key={val}
-                  onClick={active ? this.onButtonClick : null}
-                  value={val}
-                  className={`pt-button ${active ? '' : ' pt-disabled'}`}
-                  tabIndex="0"
-                  role="button"
-                  disabled={this.state.value == val}>{val}</a>
-            }) }
-          </div>
+          { buttonVal.map((val) => {
+            let active = this.props.device.Readings.state.Value == val
+            return <FlatButton
+                key={val}
+                onTouchTap={this.onButtonClick.bind(this, val)}
+                value={val}
+                label={val}
+                disabled={active}
+                primary={true}
+              />
+          }) }
         </div>
       </div>
       <div className="row">
@@ -95,12 +88,10 @@ class FhemROLLODevice extends React.Component {
             disabled={false}
             min={numVal[0]}
             max={numVal[numVal.length - 1]}
-            labelStepSize={10}
-            stepSize={10}
+            step={10}
             value={this.state.value}
             onChange={this.onChange}
-            onRelease={this.onRelease}
-            renderLabel={this.renderLabel}
+            onDragStop={this.onRelease}
           />
         </div>
       </div>

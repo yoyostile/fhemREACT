@@ -1,6 +1,6 @@
 import React from "react"
 import _ from "lodash"
-import { Switch } from "@blueprintjs/core"
+import { Toggle } from 'material-ui'
 
 class FhemSwitchDevice extends React.Component {
 
@@ -16,10 +16,10 @@ class FhemSwitchDevice extends React.Component {
 
   render() {
     return <div className="b-fhem-switch-device">
-      <Switch
-        checked={this.props.device.Internals.STATE == "on"}
+      <Toggle
+        defaultToggled={this.props.device.Internals.STATE == "on"}
         label={`${this.props.device.Attributes.alias} - ${this.props.device.Name}`}
-        onChange={this.handleChange} />
+        onToggle={this.handleChange} />
     </div>
   }
 }

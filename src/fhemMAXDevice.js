@@ -1,6 +1,5 @@
 import React from "react"
-import _ from "lodash"
-import { Slider } from "@blueprintjs/core"
+import { FlatButton, Slider } from 'material-ui';
 
 class FhemMAXDevice extends React.Component {
 
@@ -38,21 +37,20 @@ class FhemMAXDevice extends React.Component {
     }
   }
 
-  onChange(event) {
+  onChange(event, value) {
     this.setState({
-      value: event
+      value: value
     })
   }
 
-  onRelease(event) {
+  onRelease(event, value) {
     this.props.handleDeviceCommand(`set ${this.props.device.Name} desiredTemperature ${this.state.value}`)
     this.setState({
       requestSent: true
     })
   }
 
-  onButtonClick(event) {
-    const val = event.target.getAttribute('value');
+  onButtonClick(val) {
     this.props.handleDeviceCommand(`set ${this.props.device.Name} desiredTemperature ${val}`)
   }
 
@@ -70,10 +68,6 @@ class FhemMAXDevice extends React.Component {
     return this.valuesForDevice(device).filter(isNaN)
   }
 
-  renderTemperatureLabel(num) {
-    return `${num}℃`
-  }
-
   render() {
     let buttonVal = this.buttonValuesForDevice(this.props.device)
     let numVal = this.numericValuesForDevice(this.props.device)
@@ -82,22 +76,20 @@ class FhemMAXDevice extends React.Component {
     return <div className="b-fhem-max-device">
       <div className="row">
         <div className="small-12 medium-6 columns">
-          <p className="pt-ui-text-large">{this.props.device.Attributes.alias} - {this.props.device.Name} - {actualValue}℃</p>
+          <h5>{this.props.device.Attributes.alias} - {this.props.device.Name} - {actualValue}℃</h5>
+          <p>Zieltemperatur: {this.state.value}℃</p>
           { this.props.device.Readings.valveposition ? <p>Geöffnet: {parseFloat(this.props.device.Readings.valveposition.Value)}%</p> : null }
         </div>
         <div className="small-12 medium-6 columns">
-          <div className="pt-button-group float-right">
-            { buttonVal.map((val) => {
-              return <a
-                  key={val}
-                  onClick={this.onButtonClick}
-                  value={val}
-                  className="pt-button"
-                  tabIndex="0"
-                  role="button"
-                  disabled={this.state.value == val}>{val}</a>
-            }) }
-          </div>
+          { buttonVal.map((val) => {
+            return <FlatButton
+                key={val}
+                onTouchTap={this.onButtonClick.bind(this, val)}
+                value={val}
+                label={val}
+                primary={true}
+                disabled={this.state.value == val} />
+          }) }
         </div>
       </div>
       <div className="row">
@@ -106,12 +98,10 @@ class FhemMAXDevice extends React.Component {
             disabled={false}
             min={numVal[0]}
             max={numVal[numVal.length - 1]}
-            labelStepSize={2.5}
-            stepSize={0.5}
+            step={0.5}
             value={this.state.value}
             onChange={this.onChange}
-            onRelease={this.onRelease}
-            renderLabel={this.renderTemperatureLabel}
+            onDragStop={this.onRelease}
           />
         </div>
       </div>

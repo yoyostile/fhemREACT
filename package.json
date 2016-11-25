@@ -12,16 +12,18 @@
     "test:watch": "nwb test --server"
   },
   "dependencies": {
-    "@blueprintjs/core": "^1.0.1",
     "foundation-sites": "^6.2.4",
     "http-server": "^0.9.0",
     "lodash": "^4.17.2",
+    "material-ui": "^0.16.4",
     "nwb": "0.12.x",
     "nwb-sass": "^0.6.0",
     "react": "^15.4.0",
     "react-addons-css-transition-group": "^15.4.0",
     "react-color": "^2.8.0",
     "react-dom": "^15.4.0",
+    "react-foundation": "^0.7.0",
+    "react-tap-event-plugin": "^2.0.1",
     "socket.io": "^1.6.0"
   },
   "devDependencies": {},

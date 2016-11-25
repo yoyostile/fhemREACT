@@ -1,8 +1,8 @@
 import React from "react"
-import _ from "lodash"
 
-import { Slider } from "@blueprintjs/core"
-import { SketchPicker } from 'react-color'
+import { ChromePicker } from 'react-color'
+import { FlatButton, Slider } from 'material-ui';
+import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 
 class FhemWifiLightDevice extends React.Component {
   constructor(props) {
@@ -29,18 +29,15 @@ class FhemWifiLightDevice extends React.Component {
     this.props.handleDeviceCommand(`set ${this.props.device.Name} RGB ${hex}`)
   }
 
-  onButtonClick(event) {
-    const val = event.target.getAttribute('value');
+  onButtonClick(val) {
     this.props.handleDeviceCommand(`set ${this.props.device.Name} ${val}`)
   }
 
-  onDimRelease(brightness) {
-    console.log(brightness)
-    this.props.handleDeviceCommand(`set ${this.props.device.Name} dim ${brightness}`)
+  onDimRelease(event) {
+    this.props.handleDeviceCommand(`set ${this.props.device.Name} dim ${this.state.brightness}`)
   }
 
-  onDimChange(brightness) {
-    console.log(brightness)
+  onDimChange(event, brightness) {
     this.setState({
       brightness: brightness
     })
@@ -60,65 +57,56 @@ class FhemWifiLightDevice extends React.Component {
     const keys = Object.keys(this.props.device.Readings)
     return <div className="b-fhem-generic-device">
       <div className="row">
-        <div className="small-12 medium-6 columns">
-          <h4>{this.props.device.Attributes.alias || this.props.device.Name}</h4>
-        </div>
-        <div className="small-12 medium-6 columns">
-          <div className="pt-button-group float-right">
-            { buttonVal.map((val) => {
-              return <a
-                  key={val}
-                  onClick={this.onButtonClick}
-                  value={val}
-                  className="pt-button"
-                  tabIndex="0"
-                  role="button">{val}</a>
-            }) }
-          </div>
+        <div className="small-12columns">
+          <h5>{this.props.device.Attributes.alias || this.props.device.Name}</h5>
+          { buttonVal.map((val) => {
+            return <FlatButton
+                key={val}
+                onTouchTap={this.onButtonClick.bind(this, val)}
+                disabled={this.props.device.Readings.state.Value == val}
+                value={val}
+                label={val}
+              />
+          }) }
         </div>
       </div>
       <div className="row">
         <div className="small-12 medium-6 columns">
-          <table className="pt-table pt-bordered">
-            <thead>
-              <tr>
-                <th>Attribute</th>
-                <th>Value</th>
-                <th>Time</th>
-              </tr>
-            </thead>
-            <tbody>
+          <Table>
+            <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+              <TableRow>
+                <TableHeaderColumn>Attribute</TableHeaderColumn>
+                <TableHeaderColumn>Value</TableHeaderColumn>
+              </TableRow>
+            </TableHeader>
+            <TableBody displayRowCheckbox={false}>
             { keys.map((key, idx) => {
-              return <tr key={key}>
-                <td>{key}</td>
-                <td>{this.props.device.Readings[key].Value}</td>
-                <td>{this.props.device.Readings[key].Time}</td>
-              </tr>
+              return <TableRow key={key}>
+                <TableRowColumn>{key}</TableRowColumn>
+                <TableRowColumn>{this.props.device.Readings[key].Value}</TableRowColumn>
+              </TableRow>
             })}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </div>
         <div className="small-12 medium-6 columns">
-          <div className="float-right">
-            <SketchPicker
-              color={this.props.device.Readings.RGB.Value}
-              onChangeComplete={this.handleChangeComplete}
-            />
-          </div>
+          <ChromePicker
+            width="320px"
+            color={this.props.device.Readings.RGB.Value}
+            onChangeComplete={this.handleChangeComplete}
+          />
         </div>
       </div>
       <div className="row">
-        <div className="small-12 columns">
-          <h4>Dimmer</h4>
+        <div className="small-12 columns with-top-margin">
+          <h5>Dimmer - {this.state.brightness}%</h5>
           <Slider
             min={0}
             max={100}
-            labelStepSize={10}
-            stepSize={1}
+            step={1}
             value={this.state.brightness}
             onChange={this.onDimChange}
-            onRelease={this.onDimRelease}
-            renderLabel={this.renderLabel}
+            onDragStop={this.onDimRelease}
           />
         </div>
       </div>

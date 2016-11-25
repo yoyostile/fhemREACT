@@ -1,5 +1,4 @@
 import React from "react"
-import _ from "lodash"
 
 import FhemSwitchDevice from './fhemSwitchDevice'
 import FhemMAXDevice from './fhemMAXDevice'

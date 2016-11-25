@@ -2,9 +2,9 @@ import './fhem.sass'
 
 import React from 'react'
 import io from 'socket.io-client'
-import _ from 'lodash'
+// import io from './fakeSocketIO'
 
-import FhemRoomList from './fhemRoomList'
+import FhemNavigation from './fhemNavigation'
 import FhemDevice from './fhemDevice'
 
 class Fhem extends React.Component {
@@ -18,7 +18,7 @@ class Fhem extends React.Component {
     this.state = {
       jsonlist: { Results: [] },
       rooms: [],
-      activeRoom: "",
+      activeRoom: localStorage.getItem('activeRoom') || "",
       fhemjsURL: this.props.fhemjsURL,
       fhemURL: this.props.fhemURL
     }
@@ -82,8 +82,8 @@ class Fhem extends React.Component {
     })
   }
 
-  handleRoomChange(event) {
-    const room = event.target.textContent
+  handleRoomChange(room) {
+    localStorage.setItem('activeRoom', room)
     this.setState({
       activeRoom: room
     })
@@ -98,12 +98,15 @@ class Fhem extends React.Component {
 
   render() {
     return <div className="b-fhem">
-      <div className="row">
-        <div className="small-12 medium-3 columns">
-          <FhemRoomList activeRoom={this.state.activeRoom} rooms={this.state.rooms} handleRoomChange={this.handleRoomChange} />
-        </div>
-        <div className="small-12 medium-9 columns">
-          <ul className="b-fhem-devices">
+      <FhemNavigation
+        activeRoom={this.state.activeRoom}
+        rooms={this.state.rooms}
+        handleRoomChange={this.handleRoomChange}
+        resetFhemURL={this.props.resetFhemURL}
+      />
+      <div className="row b-content-row">
+        <div className="small-12 medium-10 medium-centered columns">
+          <div className="b-fhem-devices">
             { this.getDevicesForActiveRoom().map((device, _) => {
               return <div key={device.Name} className="b-fhem-device">
                   <FhemDevice
@@ -113,7 +116,7 @@ class Fhem extends React.Component {
                   />
                 </div>
             })}
-          </ul>
+          </div>
         </div>
       </div>
     </div>;

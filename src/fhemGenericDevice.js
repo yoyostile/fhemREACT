@@ -1,30 +1,30 @@
 import React from "react"
-import _ from "lodash"
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
 class FhemGenericDevice extends React.Component {
 
   render() {
     const keys = Object.keys(this.props.device.Readings)
     return <div className="b-fhem-generic-device">
-      <h4>{this.props.device.Attributes.alias || this.props.device.Name}</h4>
-      <table className="pt-table pt-bordered">
-        <thead>
-          <tr>
-            <th>Attribute</th>
-            <th>Value</th>
-            <th>Time</th>
-          </tr>
-        </thead>
-        <tbody>
+      <h5>{this.props.device.Attributes.alias || this.props.device.Name}</h5>
+      <Table>
+        <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+          <TableRow>
+            <TableHeaderColumn>Attribute</TableHeaderColumn>
+            <TableHeaderColumn>Value</TableHeaderColumn>
+            <TableHeaderColumn>Time</TableHeaderColumn>
+          </TableRow>
+        </TableHeader>
+        <TableBody displayRowCheckbox={false}>
         { keys.map((key, idx) => {
-          return <tr key={key}>
-            <td>{key}</td>
-            <td>{this.props.device.Readings[key].Value}</td>
-            <td>{this.props.device.Readings[key].Time}</td>
-          </tr>
+          return <TableRow key={key}>
+            <TableRowColumn>{key}</TableRowColumn>
+            <TableRowColumn>{this.props.device.Readings[key].Value}</TableRowColumn>
+            <TableRowColumn>{this.props.device.Readings[key].Time}</TableRowColumn>
+          </TableRow>
         })}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </div>
   }
 }
