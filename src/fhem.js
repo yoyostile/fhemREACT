@@ -14,11 +14,13 @@ class Fhem extends React.Component {
     this.handleRoomChange = this.handleRoomChange.bind(this)
     this.handleDeviceCommand = this.handleDeviceCommand.bind(this)
     this.handleDeviceChange = this.handleDeviceChange.bind(this)
-    this.socket = io(this.props.url, { timeout: 5000, 'sync disconnect on unload' : true });
+    this.socket = io(this.props.fhemjsURL, { timeout: 5000, 'sync disconnect on unload' : true });
     this.state = {
       jsonlist: { Results: [] },
       rooms: [],
-      activeRoom: ""
+      activeRoom: "",
+      fhemjsURL: this.props.fhemjsURL,
+      fhemURL: this.props.fhemURL
     }
   }
 
@@ -60,7 +62,7 @@ class Fhem extends React.Component {
   }
 
   isAllowedType(type) {
-    return ["Revolt", "IT", "MAX", "dummy", "MYSENSORS_DEVICE", "ROLLO", "WifiLight"]
+    return ["Revolt", "IT", "MAX", "dummy", "MYSENSORS_DEVICE", "ROLLO", "WifiLight", "SVG"]
       .includes(type)
   }
 
@@ -104,7 +106,11 @@ class Fhem extends React.Component {
           <ul className="b-fhem-devices">
             { this.getDevicesForActiveRoom().map((device, _) => {
               return <div key={device.Name} className="b-fhem-device">
-                  <FhemDevice handleDeviceCommand={this.handleDeviceCommand} device={device} />
+                  <FhemDevice
+                    handleDeviceCommand={this.handleDeviceCommand}
+                    device={device}
+                    fhemURL={this.state.fhemURL}
+                  />
                 </div>
             })}
           </ul>

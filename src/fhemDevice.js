@@ -6,6 +6,7 @@ import FhemMAXDevice from './fhemMAXDevice'
 import FhemGenericDevice from './fhemGenericDevice'
 import FhemROLLODevice from './fhemROLLODevice'
 import FhemWifiLightDevice from './fhemWifiLightDevice'
+import FhemSVGDevice from './fhemSVGDevice'
 
 class FhemDevice extends React.Component {
   render() {
@@ -26,6 +27,8 @@ class FhemDevice extends React.Component {
       return <FhemROLLODevice device={this.props.device} handleDeviceCommand={this.props.handleDeviceCommand} />
     if(deviceType == "WifiLight")
       return <FhemWifiLightDevice device={this.props.device} handleDeviceCommand={this.props.handleDeviceCommand} />
+    if(deviceType == "SVG")
+      return <FhemSVGDevice device={this.props.device} handleDeviceCommand={this.props.handleDeviceCommand} fhemURL={this.props.fhemURL} />
     return <li>{ this.props.device.Attributes.alias || this.props.device.Name }</li>
   }
 }
