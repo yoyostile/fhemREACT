@@ -16,7 +16,7 @@ class FhemROLLODevice extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let newValue = this.parseFloat(nextProps.device.Readings.position.Value)
+    let newValue = parseFloat(nextProps.device.Readings.position.Value)
     if(this.state.requestSent) {
       this.setState((prevState, props) => {
         if(props.value == newValue)

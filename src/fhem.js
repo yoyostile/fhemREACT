@@ -60,7 +60,7 @@ class Fhem extends React.Component {
   }
 
   isAllowedType(type) {
-    return ["Revolt", "IT", "MAX", "dummy", "MYSENSORS_DEVICE", "ROLLO"]
+    return ["Revolt", "IT", "MAX", "dummy", "MYSENSORS_DEVICE", "ROLLO", "WifiLight"]
       .includes(type)
   }
 
