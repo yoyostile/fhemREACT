@@ -1,8 +1,9 @@
 import React from "react"
-import { AppBar, Drawer, Menu, MenuItem, IconButton, IconMenu } from 'material-ui'
+import { AppBar, Drawer, MenuItem, makeSelectable, List, ListItem, IconButton, IconMenu } from 'material-ui'
 import NavigationClose from 'material-ui/svg-icons/navigation/close'
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 
+let SelectableList = makeSelectable(List);
 
 const Logout = (props) => {
   return (
@@ -24,6 +25,7 @@ class FhemNavigation extends React.Component {
     super(props)
     this.handleToggle = this.handleToggle.bind(this)
     this.handleRoomChange = this.handleRoomChange.bind(this)
+    this.handleChange = this.handleChange.bind(this)
     this.state = {
       open: this.props.activeRoom == ''
     }
@@ -37,6 +39,10 @@ class FhemNavigation extends React.Component {
 
   handleToggle() {
     this.setState({ open: !this.state.open })
+  }
+
+  handleChange(e) {
+    // console.log(e)
   }
 
   render() {
@@ -54,11 +60,11 @@ class FhemNavigation extends React.Component {
           iconElementLeft={<IconButton><NavigationClose /></IconButton>}
           onLeftIconButtonTouchTap={this.handleToggle}
         />
-        <Menu value={this.props.activeRoom}>
+        <SelectableList value={this.props.activeRoom} onChange={this.handleChange} >
           { this.props.rooms.map((room, idx) => {
-            return <MenuItem key={idx} onTouchTap={this.handleRoomChange} value={room}>{room}</MenuItem>
+            return <ListItem key={idx} onTouchTap={this.handleRoomChange} value={room}>{room}</ListItem>
           }) }
-        </Menu>
+        </SelectableList>
       </Drawer>
     </div>
   }
