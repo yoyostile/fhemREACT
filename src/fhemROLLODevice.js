@@ -64,7 +64,7 @@ class FhemROLLODevice extends React.Component {
     return <div className="b-fhem-rollo-device">
       <div className="row">
         <div className="small-12 columns">
-          <h3>{this.props.device.Attributes.alias} - {this.props.device.Name}</h3>
+          <h3>{this.props.device.Attributes.alias || this.props.device.Name}</h3>
           <div className="a-button-group">
             { buttonVal.map((val) => {
               let active = this.props.device.Readings.state.Value == val

@@ -76,7 +76,7 @@ class FhemMAXDevice extends React.Component {
     return <div className="b-fhem-max-device">
       <div className="row">
         <div className="small-12 columns">
-          <h3>{this.props.device.Attributes.alias} - {this.props.device.Name} - {actualValue}℃</h3>
+          <h3>{this.props.device.Attributes.alias || this.props.device.Name} - {actualValue}℃</h3>
           <div className="a-button-group">
             { buttonVal.map((val) => {
               return <RaisedButton
