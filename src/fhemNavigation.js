@@ -54,7 +54,12 @@ class FhemNavigation extends React.Component {
           iconElementRight={<Logout signOut={this.props.resetFhemURL} />}
         />
       </div>
-      <Drawer open={this.state.open} docked={false} width={280}>
+      <Drawer
+        open={this.state.open}
+        docked={false}
+        width={280}
+        onRequestChange={(open) => this.setState({open})}
+        >
         <AppBar
           title="Rooms"
           iconElementLeft={<IconButton><NavigationClose /></IconButton>}
