@@ -2,7 +2,7 @@ import React from 'react'
 import Fhem from './fhem'
 import FhemURLInput from './fhemURLInput'
 import {
-  lightBlue500, lightBlue700,
+  blueGrey500, blueGrey700,
   deepOrange300,
   grey100, grey300, grey400, grey500,
   white, darkBlack, fullBlack,
@@ -18,8 +18,8 @@ const muiTheme = getMuiTheme({
   spacing: spacing,
   fontFamily: 'Roboto, sans-serif',
   palette: {
-    primary1Color: lightBlue500,
-    primary2Color: lightBlue700,
+    primary1Color: blueGrey500,
+    primary2Color: blueGrey700,
     primary3Color: grey400,
     accent1Color: deepOrange300,
     accent2Color: grey100,
@@ -30,7 +30,7 @@ const muiTheme = getMuiTheme({
     canvasColor: white,
     borderColor: grey300,
     disabledColor: fade(darkBlack, 0.3),
-    pickerHeaderColor: lightBlue500,
+    pickerHeaderColor: blueGrey500,
     clockCircleColor: fade(darkBlack, 0.07),
     shadowColor: fullBlack,
   },

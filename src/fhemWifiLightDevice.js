@@ -58,7 +58,7 @@ class FhemWifiLightDevice extends React.Component {
     return <div className="b-fhem-generic-device">
       <div className="row">
         <div className="small-12columns">
-          <h5>{this.props.device.Attributes.alias || this.props.device.Name}</h5>
+          <h3>{this.props.device.Attributes.alias || this.props.device.Name}</h3>
           { buttonVal.map((val) => {
             return <FlatButton
                 key={val}

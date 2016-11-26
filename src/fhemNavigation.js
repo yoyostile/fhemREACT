@@ -1,6 +1,23 @@
 import React from "react"
-import { AppBar, Drawer, Menu, MenuItem, IconButton } from 'material-ui'
+import { AppBar, Drawer, Menu, MenuItem, IconButton, IconMenu } from 'material-ui'
 import NavigationClose from 'material-ui/svg-icons/navigation/close'
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
+
+
+const Logout = (props) => {
+  console.log(props)
+  return (
+  <IconMenu
+    {...props}
+    iconButtonElement={
+      <IconButton><MoreVertIcon className="white-icon" /></IconButton>
+    }
+    targetOrigin={{horizontal: 'right', vertical: 'top'}}
+    anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+  >
+    <MenuItem primaryText="Sign out" onTouchTap={props.signOut} />
+  </IconMenu>
+)}
 
 class FhemNavigation extends React.Component {
 
@@ -26,13 +43,16 @@ class FhemNavigation extends React.Component {
   render() {
     return <div className='b-fhem-navigation'>
       <AppBar
-        title="reactFhem"
+        title={this.props.activeRoom || "reactFhem"}
         onLeftIconButtonTouchTap={this.handleToggle}
-        onRightIconButtonTouchTap={this.props.resetFhemURL}
-        iconElementRight={<IconButton><NavigationClose /></IconButton>}
+        iconElementRight={<Logout signOut={this.props.resetFhemURL} />}
       />
-      <Drawer open={this.state.open}>
-        <AppBar title="Rooms" onLeftIconButtonTouchTap={this.handleToggle} />
+      <Drawer open={this.state.open} docked={false}>
+        <AppBar
+          title="Rooms"
+          iconElementLeft={<IconButton><NavigationClose /></IconButton>}
+          onLeftIconButtonTouchTap={this.handleToggle}
+        />
         <Menu>
           { this.props.rooms.map((room, idx) => {
             return <MenuItem key={idx} onTouchTap={this.handleRoomChange} disabled={this.props.activeRoom == room}>{room}</MenuItem>

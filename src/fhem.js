@@ -58,6 +58,10 @@ class Fhem extends React.Component {
       return result.Attributes.room && this.state.activeRoom ?
         (result.Attributes.room.match(this.state.activeRoom) && this.isAllowedType(result.Internals.TYPE))
         : false
+    }).sort((a,b) => {
+      let str1 = a.Internals.TYPE
+      let str2 = b.Internals.TYPE
+      return str1 < str2 ? -1 : str1 > str2
     })
   }
 
@@ -97,17 +101,19 @@ class Fhem extends React.Component {
   }
 
   render() {
+    const devices = this.getDevicesForActiveRoom()
     return <div className="b-fhem">
       <FhemNavigation
         activeRoom={this.state.activeRoom}
         rooms={this.state.rooms}
         handleRoomChange={this.handleRoomChange}
         resetFhemURL={this.props.resetFhemURL}
+        activeRoom={this.state.activeRoom}
       />
       <div className="row b-content-row">
         <div className="small-12 medium-10 medium-centered columns">
-          <div className="b-fhem-devices">
-            { this.getDevicesForActiveRoom().map((device, _) => {
+          <div className={`b-fhem-devices ${(devices.length == 0 ? ' hidden' : '')}`}>
+            { devices.map((device, _) => {
               return <div key={device.Name} className="b-fhem-device">
                   <FhemDevice
                     handleDeviceCommand={this.handleDeviceCommand}

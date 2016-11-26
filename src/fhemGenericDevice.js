@@ -6,7 +6,7 @@ class FhemGenericDevice extends React.Component {
   render() {
     const keys = Object.keys(this.props.device.Readings)
     return <div className="b-fhem-generic-device">
-      <h5>{this.props.device.Attributes.alias || this.props.device.Name}</h5>
+      <h3>{this.props.device.Attributes.alias || this.props.device.Name}</h3>
       <Table>
         <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
           <TableRow>

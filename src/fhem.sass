@@ -1,3 +1,6 @@
+@import 'unit'
+@import 'breakpoint'
+
 *
   font-family: Roboto
 
@@ -12,23 +15,21 @@ body
   top: 0
   left: 0
   width: 100%
-  z-index: 1
+  z-index: 200
 
 .b-content-row
-  padding-top: 100px
+  padding-top: 60px
   background-color: #fff
 
-.b-fhem-device
-  .pt-ui-text-large
-    margin-top: 5px
-  .pt-slider
-    margin-top: 10px
+.b-fhem-devices
+  padding-top: 30px
 
-.b-fhem-rollo-device, .b-fhem-max-device, .b-fhem-generic-device
-  margin-top: 60px
+.b-fhem-rollo-device, .b-fhem-max-device, .b-fhem-generic-device, .b-fhem-svg-device
+  margin-top: 30px
+  padding-top: 30px
+  border-top: 1px solid rgba(black, 0.1)
 
 .b-fhem-svg-device
-  margin-top: 60px
   img
     width: 100%
 
@@ -41,3 +42,17 @@ body
 .chrome-picker
   width: 320px !important
   margin: 0 auto
+
+.a-button
+  margin-right: 10px
+  margin-bottom: 10px
+
+.a-button-group
+  @include breakpoint(small only)
+    text-align: center
+
+.white-icon
+  color: #fff !important
+
+.hidden
+  display: none

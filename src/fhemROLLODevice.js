@@ -1,5 +1,5 @@
 import React from "react"
-import { FlatButton, Slider } from 'material-ui';
+import { RaisedButton, Slider } from 'material-ui';
 
 class FhemROLLODevice extends React.Component {
 
@@ -63,23 +63,24 @@ class FhemROLLODevice extends React.Component {
     const buttonVal = this.buttonValuesForDevice(this.props.device)
     return <div className="b-fhem-rollo-device">
       <div className="row">
-        <div className="small-12 medium-6 columns">
-          <h5>{this.props.device.Attributes.alias} - {this.props.device.Name}</h5>
+        <div className="small-12 columns">
+          <h3>{this.props.device.Attributes.alias} - {this.props.device.Name}</h3>
+          <div className="a-button-group">
+            { buttonVal.map((val) => {
+              let active = this.props.device.Readings.state.Value == val
+              return <RaisedButton
+                  key={val}
+                  onTouchTap={this.onButtonClick.bind(this, val)}
+                  value={val}
+                  label={val}
+                  className="a-button"
+                  disabled={active}
+                  primary={true}
+                />
+            }) }
+          </div>
           { this.props.device.Readings.position ? <p>Rollostand: {parseFloat(this.props.device.Readings.position.Value)}%</p> : null }
           <p>Zielstand: {this.state.value}%</p>
-        </div>
-        <div className="small-12 medium-6 columns">
-          { buttonVal.map((val) => {
-            let active = this.props.device.Readings.state.Value == val
-            return <FlatButton
-                key={val}
-                onTouchTap={this.onButtonClick.bind(this, val)}
-                value={val}
-                label={val}
-                disabled={active}
-                primary={true}
-              />
-          }) }
         </div>
       </div>
       <div className="row">

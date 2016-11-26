@@ -1,5 +1,5 @@
 import React from "react"
-import { FlatButton, Slider } from 'material-ui';
+import { RaisedButton, Slider } from 'material-ui';
 
 class FhemMAXDevice extends React.Component {
 
@@ -75,21 +75,20 @@ class FhemMAXDevice extends React.Component {
     let actualValue = parseFloat(this.props.device.Readings.temperature.Value)
     return <div className="b-fhem-max-device">
       <div className="row">
-        <div className="small-12 medium-6 columns">
-          <h5>{this.props.device.Attributes.alias} - {this.props.device.Name} - {actualValue}℃</h5>
-          <p>Zieltemperatur: {this.state.value}℃</p>
-          { this.props.device.Readings.valveposition ? <p>Geöffnet: {parseFloat(this.props.device.Readings.valveposition.Value)}%</p> : null }
-        </div>
-        <div className="small-12 medium-6 columns">
+        <div className="small-12 columns">
+          <h3>{this.props.device.Attributes.alias} - {this.props.device.Name} - {actualValue}℃</h3>
           { buttonVal.map((val) => {
-            return <FlatButton
+            return <RaisedButton
                 key={val}
                 onTouchTap={this.onButtonClick.bind(this, val)}
                 value={val}
                 label={val}
+                className="a-button"
                 primary={true}
                 disabled={this.state.value == val} />
           }) }
+          <p>Zieltemperatur: {this.state.value}℃</p>
+          { this.props.device.Readings.valveposition ? <p>Geöffnet: {parseFloat(this.props.device.Readings.valveposition.Value)}%</p> : null }
         </div>
       </div>
       <div className="row">
