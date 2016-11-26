@@ -41,12 +41,14 @@ class FhemNavigation extends React.Component {
 
   render() {
     return <div className='b-fhem-navigation'>
-      <AppBar
-        title={this.props.activeRoom || "reactFhem"}
-        onLeftIconButtonTouchTap={this.handleToggle}
-        iconElementRight={<Logout signOut={this.props.resetFhemURL} />}
-      />
-      <Drawer open={this.state.open} docked={false}>
+      <div className='b-fhem-navigation--top-bar'>
+        <AppBar
+          title={this.props.activeRoom || "reactFhem"}
+          onLeftIconButtonTouchTap={this.handleToggle}
+          iconElementRight={<Logout signOut={this.props.resetFhemURL} />}
+        />
+      </div>
+      <Drawer open={this.state.open} docked={false} width={280}>
         <AppBar
           title="Rooms"
           iconElementLeft={<IconButton><NavigationClose /></IconButton>}
