@@ -15,7 +15,7 @@ class FhemSwitchDevice extends React.Component {
   }
 
   render() {
-    return <div className="b-fhem-switch-device">
+    return <div className="b-fhem-switch-device small-12 medium-6 columns">
       <Toggle
         defaultToggled={this.props.device.Internals.STATE == "on"}
         label={`${this.props.device.Attributes.alias || this.props.device.Name}`}

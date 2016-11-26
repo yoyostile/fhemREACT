@@ -8,7 +8,6 @@ let SelectableList = makeSelectable(List);
 const Logout = (props) => {
   return (
   <IconMenu
-    {...props}
     iconButtonElement={
       <IconButton><MoreVertIcon className="white-icon" /></IconButton>
     }

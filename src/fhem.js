@@ -113,14 +113,13 @@ class Fhem extends React.Component {
       <div className="row b-content-row">
         <div className="small-12 medium-10 medium-centered columns">
           <div className={`b-fhem-devices ${(devices.length == 0 ? ' hidden' : '')}`}>
-            { devices.map((device, _) => {
-              return <div key={device.Name} className="b-fhem-device">
-                  <FhemDevice
-                    handleDeviceCommand={this.handleDeviceCommand}
-                    device={device}
-                    fhemURL={this.state.fhemURL}
-                  />
-                </div>
+            { devices.map((device, idx) => {
+              return <FhemDevice
+                  key={device.Name}
+                  handleDeviceCommand={this.handleDeviceCommand}
+                  device={device}
+                  fhemURL={this.state.fhemURL}
+                />
             })}
           </div>
         </div>
