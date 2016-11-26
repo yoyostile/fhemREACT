@@ -3,7 +3,7 @@ import Fhem from './fhem'
 import FhemURLInput from './fhemURLInput'
 import {
   blueGrey500, blueGrey700,
-  deepOrange300,
+  red200,
   grey100, grey300, grey400, grey500,
   white, darkBlack, fullBlack,
 } from 'material-ui/styles/colors';
@@ -21,7 +21,7 @@ const muiTheme = getMuiTheme({
     primary1Color: blueGrey500,
     primary2Color: blueGrey700,
     primary3Color: grey400,
-    accent1Color: deepOrange300,
+    accent1Color: red200,
     accent2Color: grey100,
     accent3Color: grey500,
     textColor: darkBlack,

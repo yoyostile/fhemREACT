@@ -5,7 +5,6 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 
 
 const Logout = (props) => {
-  console.log(props)
   return (
   <IconMenu
     {...props}
@@ -53,9 +52,9 @@ class FhemNavigation extends React.Component {
           iconElementLeft={<IconButton><NavigationClose /></IconButton>}
           onLeftIconButtonTouchTap={this.handleToggle}
         />
-        <Menu>
+        <Menu value={this.props.activeRoom}>
           { this.props.rooms.map((room, idx) => {
-            return <MenuItem key={idx} onTouchTap={this.handleRoomChange} disabled={this.props.activeRoom == room}>{room}</MenuItem>
+            return <MenuItem key={idx} onTouchTap={this.handleRoomChange} value={room}>{room}</MenuItem>
           }) }
         </Menu>
       </Drawer>

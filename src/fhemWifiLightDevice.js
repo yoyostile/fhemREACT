@@ -52,22 +52,23 @@ class FhemWifiLightDevice extends React.Component {
   }
 
   render() {
-    console.log(this.props.device)
     const buttonVal = this.buttonValuesForDevice(this.props.device)
     const keys = Object.keys(this.props.device.Readings)
     return <div className="b-fhem-generic-device">
       <div className="row">
         <div className="small-12columns">
           <h3>{this.props.device.Attributes.alias || this.props.device.Name}</h3>
-          { buttonVal.map((val) => {
-            return <FlatButton
-                key={val}
-                onTouchTap={this.onButtonClick.bind(this, val)}
-                disabled={this.props.device.Readings.state.Value == val}
-                value={val}
-                label={val}
-              />
-          }) }
+          <div className="a-button-group">
+            { buttonVal.map((val) => {
+              return <FlatButton
+                  key={val}
+                  onTouchTap={this.onButtonClick.bind(this, val)}
+                  disabled={this.props.device.Readings.state.Value == val}
+                  value={val}
+                  label={val}
+                />
+            }) }
+          </div>
         </div>
       </div>
       <div className="row">

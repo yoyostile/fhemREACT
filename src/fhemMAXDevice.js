@@ -77,16 +77,18 @@ class FhemMAXDevice extends React.Component {
       <div className="row">
         <div className="small-12 columns">
           <h3>{this.props.device.Attributes.alias} - {this.props.device.Name} - {actualValue}℃</h3>
-          { buttonVal.map((val) => {
-            return <RaisedButton
-                key={val}
-                onTouchTap={this.onButtonClick.bind(this, val)}
-                value={val}
-                label={val}
-                className="a-button"
-                primary={true}
-                disabled={this.state.value == val} />
-          }) }
+          <div className="a-button-group">
+            { buttonVal.map((val) => {
+              return <RaisedButton
+                  key={val}
+                  onTouchTap={this.onButtonClick.bind(this, val)}
+                  value={val}
+                  label={val}
+                  className="a-button"
+                  primary={true}
+                  disabled={this.state.value == val} />
+            }) }
+          </div>
           <p>Zieltemperatur: {this.state.value}℃</p>
           { this.props.device.Readings.valveposition ? <p>Geöffnet: {parseFloat(this.props.device.Readings.valveposition.Value)}%</p> : null }
         </div>
