@@ -18,7 +18,6 @@ class FhemSVGDevice extends React.Component {
   }
 
   render() {
-    const keys = Object.keys(this.props.device.Readings)
     return <div className="b-fhem-svg-device">
       <h3>{this.props.device.Attributes.alias || this.props.device.Name}</h3>
       <img src={this.generateSVGURL()} />

@@ -40,7 +40,9 @@ class Fhem extends React.Component {
 
   getRoomsFromData(data) {
     const rooms = _.chain(data.Results)
-        .map((el) => { return el.Attributes.room })
+        .map((el) => {
+          return el.Attributes ? el.Attributes.room : ''
+        })
         .map((el) => {
           return el ? _.split(el, ",") : ''
         })
@@ -55,7 +57,7 @@ class Fhem extends React.Component {
   getDevicesForActiveRoom() {
     return this.state.jsonlist.Results.filter((result) => {
       if(this.state.activeRoom == "All") return true
-      return result.Attributes.room && this.state.activeRoom ?
+      return result.Attributes && result.Attributes.room && this.state.activeRoom ?
         (result.Attributes.room.match(this.state.activeRoom) && this.isAllowedType(result.Internals.TYPE))
         : false
     }).sort((a,b) => {
